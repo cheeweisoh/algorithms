@@ -21,31 +21,20 @@ def createTree(nodeList, index):
     return root
 
 class Solution:
-    def addtostr(self, node: TreeNode, ans: str) -> str:
-        subans = ''
-        if (node.left):
-            print(node.left.val)
-            subans += '(' + str(node.left.val)
-            subans = self.addtostr(node.left, subans)
-            subans += ')'
-        elif (node.right):
-            subans += '()'
+    def inorderTraversal(self, root: TreeNode) -> list:
+        ans = []
         
-        if (node.right):
-            print(node.right.val)
-            subans += '(' + str(node.right.val)
-            subans = self.addtostr(node.right, subans)
-            subans += ')'
+        def dfs(node):
+            if node:
+                dfs(node.left)
+                ans.append(node.val)
+                dfs(node.right)
         
-        return ans + subans
-    
-    def tree2str(self, root: TreeNode) -> str:
-        ans = self.addtostr(root, str(root.val))
-        ans = ans.replace('None', '')
+        dfs(root)
         return ans
 
 soln = Solution()
-root1 = createTree([1,2,3,4], 0)
-root2 = createTree([1,2,3,None,4], 0)
-print(soln.tree2str(root1))
-print(soln.tree2str(root2))
+root1 = createTree([1,None,2,3], 0)
+root2 = createTree([1], 0)
+print(soln.inorderTraversal(root1))
+print(soln.inorderTraversal(root2))
