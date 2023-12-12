@@ -4,37 +4,23 @@ import random
 import heapq
 import string
 
-class TreeNode():
-    def __init__(self, val = 0, left = None, right = None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-def createTree(nodeList, index):
-    root = TreeNode(nodeList[index])
-    
-    if 2 * index + 1 < len(nodeList):
-        root.left = createTree(nodeList, 2 * index + 1)
-    if 2 * index + 2 < len(nodeList):
-        root.right = createTree(nodeList, 2 * index + 2)
-        
-    return root
-
 class Solution:
-    def inorderTraversal(self, root: TreeNode) -> list:
-        ans = []
+    def maxProduct(self, nums: list[int]):
+        num1 = 0
+        num2 = 0
         
-        def dfs(node):
-            if node:
-                dfs(node.left)
-                ans.append(node.val)
-                dfs(node.right)
-        
-        dfs(root)
-        return ans
+        for i in nums:
+            if i > num1:
+                num1, num2 = i, num1
+            elif i > num2:
+                num2 = i
+                
+        return num1, num2
 
 soln = Solution()
-root1 = createTree([1,None,2,3], 0)
-root2 = createTree([1], 0)
-print(soln.inorderTraversal(root1))
-print(soln.inorderTraversal(root2))
+nums = [3,4,5,2]
+print(soln.maxProduct(nums))
+nums = [1,5,4,5]
+print(soln.maxProduct(nums))
+nums = [3,7]
+print(soln.maxProduct(nums))
