@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
-from queue import deque
+from collections import defaultdict
 
 
 def parseInput(file: list) -> list[list[str]]:
@@ -14,44 +14,93 @@ def parseInput(file: list) -> list[list[str]]:
     return new_map
 
 
-def findLongestPath(new_map: list[list[str]]):
-    sx, sy = 0, new_map[0].index(".")
-    ex, ey = len(new_map) - 1, new_map[-1].index(".")
-    mem = [[0] * len(new_map[0]) for _ in range(len(new_map))]
-    ans = []
+def getIntersection(pos: tuple[int], dir: int, new_map: list[list[str]]):
+    next_dirs = []
+    
+    for ddir in [1, -1, 1j, -1j]:
+        if ddir == -dir:
+            continue
+        
+        new_pos = pos + ddir
+        x, y = int(new_pos.real), int(new_pos.imag)
+        if x in range(len(new_map)) and y in range(len(new_map[0])) and new_map[x][y] != '#':
+            next_dirs.append(ddir)
+            
+    return next_dirs
 
-    # for i in new_map:
-    # print(i)
 
-    queue = deque()
-    queue.append((sx, sy, [(sx, sy)]))
+def getAdjacencyMap(new_map: list[list[str]]) -> (dict[int, list[tuple[int]]], int, int):
+    start = new_map[0].index(".") * 1j
+    end = (len(new_map) - 1) + (new_map[-1].index(".")) * 1j
 
+    visited = set()
+    nodes = defaultdict(list)
+    queue = [(start, 1)]
+    
     while queue:
-        x, y, pathset = queue.popleft()
-        for dx, dy in [[0, 1], [1, 0], [0, -1], [-1, 0]]:
-            nx, ny = x + dx, y + dy
+        node, dir = queue.pop()
+        
+        if (node, dir) in visited:
+            continue
+        visited.add((node, dir))
+        
+        curr_pos = node
+        steps = 0
+        count = 0
+        while True:
+            count += 1
+            steps += 1
+            curr_pos += dir
+            next_dirs = getIntersection(curr_pos, dir, new_map)
+            
+            if len(next_dirs) > 1 or curr_pos == end:
+                nodes[node].append((curr_pos, steps))
+                nodes[curr_pos].append((node, steps))
+                visited.add((curr_pos, -dir))
+                
+                for ddir in next_dirs:
+                    if (curr_pos, ddir) not in visited:
+                        queue.append((curr_pos, ddir))
+                break
+            dir = next_dirs[0]
+                
+    return nodes, start, end
 
-            if (nx, ny) in pathset:
+
+def findLongestPath(new_map: list[list[str]]) -> int:
+    adj_map, start, end = getAdjacencyMap(new_map)
+    mem = {}
+    visited = set()
+    visited.add(start)
+    queue = [(start, 0, frozenset(visited))]
+    ans = 0
+    
+    while queue:
+        curr_pos, steps, visited = queue.pop()
+        
+        if curr_pos == end and steps > ans:
+            ans = steps
+            print(ans)
+            continue
+        
+        if mem.get((curr_pos, visited), -1) >= steps:
+            continue
+        
+        mem[(curr_pos, visited)] = steps
+        new_visited = set(visited)
+        new_visited.add(curr_pos)
+        new_visited = frozenset(new_visited)
+        
+        for next_pos, next_steps in adj_map[curr_pos]:
+            if next_pos in new_visited:
                 continue
-
-            if nx == ex and ny == ey:
-                ans.append(len(pathset))
-
-            if nx in range(len(new_map)) and ny in range(len(new_map[0])):
-                ntile = new_map[nx][ny]
-                new_pathset = [x for x in pathset]
-
-                if ntile != "#":
-                    new_pathset.append((nx, ny))
-                    
-                    if len(new_pathset) < mem[nx][ny]:
-                        continue
-
-                    queue.append((nx, ny, new_pathset))
-                    mem[nx][ny] = len(new_pathset)
-
-    return max(ans)
-
+            new_steps = steps + next_steps
+            if mem.get((next_pos, new_visited), 0) >= new_steps:
+                continue
+            queue.append((next_pos, new_steps, new_visited))
+    
+    return ans
+        
 
 def main():
     here = Path(__file__).parent
