@@ -5,22 +5,31 @@ import heapq
 import string
 
 class Solution:
-    def maxProduct(self, nums: list[int]):
-        num1 = 0
-        num2 = 0
+    def numDecodings(self, s: str) -> int:
         
-        for i in nums:
-            if i > num1:
-                num1, num2 = i, num1
-            elif i > num2:
-                num2 = i
+        def dfs(s):
+            if s == '':
+                return 1
+            
+            ways = 0
+            
+            for i in range(len(s)):
+                cs = s[:i+1]
                 
-        return num1, num2
+                if cs[0] == '0' or int(cs) > 26:
+                   break
+                
+                ways += dfs(s[i+1:])
+            
+            return ways
+        
+        return dfs(s) 
 
-soln = Solution()
-nums = [3,4,5,2]
-print(soln.maxProduct(nums))
-nums = [1,5,4,5]
-print(soln.maxProduct(nums))
-nums = [3,7]
-print(soln.maxProduct(nums))
+def main():
+    soln = Solution()
+    
+    for i in ["12", "226", "06"]:
+        print(soln.numDecodings(i))
+
+if __name__ == "__main__":
+    main()
