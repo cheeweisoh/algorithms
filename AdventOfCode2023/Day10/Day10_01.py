@@ -97,7 +97,7 @@ def mapDistances(maze: list[list[str]]) -> int:
 
 def main():
     here = Path(__file__).parent
-    with open(here/'test.txt') as file:
+    with open(here/'test01.txt') as file:
         test_data = file.read().splitlines()
         test_maze = parseInput(test_data)
     
