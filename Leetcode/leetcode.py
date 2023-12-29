@@ -4,27 +4,42 @@ import random
 import heapq
 import string
 
-class Solution:
-    def minCost(self, colors: str, neededTime: list[int]) -> int:
-        total_time = 0
-        curr_time = [neededTime[0],]
+class Solution:    
+    def minDifficulty(self, jobDifficulty: list[int] , d: int) -> int:
+        if len(jobDifficulty) < d:
+            return -1
+        elif len(jobDifficulty) == d:
+            return sum(jobDifficulty)
         
-        for i in range(len(colors)-1):
-            if colors[i] == colors[i+1]:
-                curr_time.append(neededTime[i+1])
-            else:
-                total_time += sum(curr_time) - max(curr_time)
-                curr_time = [neededTime[i+1],]
+        mem = {}
         
-        total_time += sum(curr_time) - max(curr_time) if len(curr_time) > 1 else 0
-        
-        return total_time
+        def dfs(idx, d, curr_max):
+            if idx == len(jobDifficulty) and d == 0:
+                return 0
+            elif idx == len(jobDifficulty) or d == 0:
+                return float('inf')
+            
+            if (idx, d, curr_max) in mem.keys():
+                return mem[(idx, d, curr_max)]
+            
+            curr_max = max(curr_max, jobDifficulty[idx])
+            ans = min(dfs(idx+1, d, curr_max), dfs(idx+1, d-1, -1) + curr_max)
+            mem[(idx, d, curr_max)] = ans
+            
+            return ans
+            
+        return dfs(0, d, -1)
+
 
 def main():
     soln = Solution()
     
-    for c, t in [["abaac", [1,2,3,4,5]], ["abc", [1,2,3]], ["aabaa", [1,2,3,4,1]], ["aaaba", [1,2,3,4,5]]]:
-        print(soln.minCost(c, t))
+    for jobDifficulty, d in [
+        [[6,5,4,3,2,1], 2],
+        [[9,9,9], 4],
+        [[1,1,1], 3]
+    ]:
+        print(soln.minDifficulty(jobDifficulty, d))
 
 if __name__ == "__main__":
     main()
