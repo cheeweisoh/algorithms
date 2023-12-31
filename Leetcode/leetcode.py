@@ -4,42 +4,33 @@ import random
 import heapq
 import string
 
-class Solution:    
-    def minDifficulty(self, jobDifficulty: list[int] , d: int) -> int:
-        if len(jobDifficulty) < d:
-            return -1
-        elif len(jobDifficulty) == d:
-            return sum(jobDifficulty)
+
+class Solution:
+    def makeEqual(self, words: list[str]) -> bool:
+        if len(words) == 1:
+            return True
         
-        mem = {}
-        
-        def dfs(idx, d, curr_max):
-            if idx == len(jobDifficulty) and d == 0:
-                return 0
-            elif idx == len(jobDifficulty) or d == 0:
-                return float('inf')
-            
-            if (idx, d, curr_max) in mem.keys():
-                return mem[(idx, d, curr_max)]
-            
-            curr_max = max(curr_max, jobDifficulty[idx])
-            ans = min(dfs(idx+1, d, curr_max), dfs(idx+1, d-1, -1) + curr_max)
-            mem[(idx, d, curr_max)] = ans
-            
-            return ans
-            
-        return dfs(0, d, -1)
+        s = "".join(words)
+        count = collections.Counter(s)
+
+        for val in count.values():
+            if val % len(words) != 0:
+                return False
+        return True
 
 
 def main():
     soln = Solution()
-    
-    for jobDifficulty, d in [
-        [[6,5,4,3,2,1], 2],
-        [[9,9,9], 4],
-        [[1,1,1], 3]
+
+    for words in [
+        ["abc", "aabc", "bc"],
+        ["ab", "a"],
+        ["a", "b"],
+        ["caaaaa","aaaaaaaaa","a","bbb","bbbbbbbbb","bbb","cc","cccccccccccc","ccccccc","ccccccc","cc","cccc","c","cccccccc","c"],
     ]:
-        print(soln.minDifficulty(jobDifficulty, d))
+        print(soln.makeEqual(words))
+
 
 if __name__ == "__main__":
     main()
+
