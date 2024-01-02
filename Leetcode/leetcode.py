@@ -6,29 +6,24 @@ import string
 
 
 class Solution:
-    def makeEqual(self, words: list[str]) -> bool:
-        if len(words) == 1:
-            return True
+    def findMatrix(self, nums: list[int]) -> list[list[int]]:
+        counts = collections.defaultdict(int)
+        ans = [[]]
         
-        s = "".join(words)
-        count = collections.Counter(s)
-
-        for val in count.values():
-            if val % len(words) != 0:
-                return False
-        return True
+        for i in nums:
+            counts[i] += 1
+            if counts[i] > len(ans):
+                ans.append([])
+            
+            ans[counts[i] - 1].append(i)
+        
+        return ans
 
 
 def main():
     soln = Solution()
-
-    for words in [
-        ["abc", "aabc", "bc"],
-        ["ab", "a"],
-        ["a", "b"],
-        ["caaaaa","aaaaaaaaa","a","bbb","bbbbbbbbb","bbb","cc","cccccccccccc","ccccccc","ccccccc","cc","cccc","c","cccccccc","c"],
-    ]:
-        print(soln.makeEqual(words))
+    for nums in [[1, 3, 4, 1, 2, 3, 1], [1, 2, 3, 4]]:
+        print(soln.findMatrix(nums))
 
 
 if __name__ == "__main__":
