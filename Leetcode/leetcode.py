@@ -6,25 +6,26 @@ import string
 
 
 class Solution:
-    def findMatrix(self, nums: list[int]) -> list[list[int]]:
-        counts = collections.defaultdict(int)
-        ans = [[]]
+    def numberOfBeams(self, bank: list[str]) -> int:
+        ans = 0
+        prev = 0
         
-        for i in nums:
-            counts[i] += 1
-            if counts[i] > len(ans):
-                ans.append([])
-            
-            ans[counts[i] - 1].append(i)
-        
+        for i in bank:
+           curr = i.count('1')
+           
+           if curr == 0:
+               continue
+           
+           ans += prev * curr
+           print(curr, prev, ans)
+           prev = curr
+           
         return ans
-
 
 def main():
     soln = Solution()
-    for nums in [[1, 3, 4, 1, 2, 3, 1], [1, 2, 3, 4]]:
-        print(soln.findMatrix(nums))
-
+    for bank in [["011001","000000","010100","001000"], ["000","111","000"]]:
+        print(soln.numberOfBeams(bank))
 
 if __name__ == "__main__":
     main()
