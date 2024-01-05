@@ -6,27 +6,29 @@ import string
 
 
 class Solution:
-    def numberOfBeams(self, bank: list[str]) -> int:
-        ans = 0
-        prev = 0
-        
-        for i in bank:
-           curr = i.count('1')
-           
-           if curr == 0:
-               continue
-           
-           ans += prev * curr
-           print(curr, prev, ans)
-           prev = curr
-           
-        return ans
+    def lengthOfLIS(self, nums: list[int]) -> int:
+        mem = [-1] * len(nums)
+        mem[-1] = 1
+
+        for i in range(len(nums) - 2, -1, -1):
+            for j in range(i, len(nums)):
+                if nums[i] < nums[j]:
+                    mem[i] = max(mem[i], mem[j] + 1)
+            if mem[i] == -1:
+                mem[i] = 1
+
+        return max(mem)
+
 
 def main():
     soln = Solution()
-    for bank in [["011001","000000","010100","001000"], ["000","111","000"]]:
-        print(soln.numberOfBeams(bank))
+    for nums in [
+        [10, 9, 2, 5, 3, 7, 101, 18],
+        [0, 1, 0, 3, 2, 3],
+        [7, 7, 7, 7, 7, 7, 7],
+    ]:
+        print(soln.lengthOfLIS(nums))
+
 
 if __name__ == "__main__":
     main()
-
