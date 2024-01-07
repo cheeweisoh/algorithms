@@ -7,26 +7,29 @@ import bisect
 
 
 class Solution:
-    def jobScheduling(self, startTime: list[int], endTime: list[int], profit: list[int]) -> int:
-        sched = [[startTime[i], endTime[i], profit[i]] for i in range(len(startTime))]
-        sched.sort(key = lambda x: x[1])
-        totalProfit = [0] * (len(startTime) + 1)
+    def numberOfArithmeticSlices(self, nums: list[int]):
+        n = len(nums)
+        total = 0
+        mem = [collections.defaultdict(int) for _ in range(n)]
         
-        for i, (s, e, p) in enumerate(sched):
-            idx = bisect.bisect_right(sched, s, hi=i, key=lambda x: x[1])
-            totalProfit[i+1] = max(totalProfit[i], totalProfit[idx] + p)
+        for i in range(1, n):
+            for j in range(i):
+                diff = nums[i] - nums[j]
+                mem[i][diff] += 1
+                
+                if mem[j][diff]:
+                    mem[i][diff] += mem[j][diff]
+                    total += mem[j][diff]
         
-        return totalProfit[-1]
+        return total
 
 def main():
     soln = Solution()
-    for startTime, endTime, profit in [
-        # [[1,2,3,3], [3,4,5,6], [50,10,40,70]],
-        # [[1,2,3,4,6], [3,5,10,6,9], [20,20,100,70,60]],
-        # [[1,1,1], [2,3,4], [5,6,4]],
-        [[6,15,7,11,1,3,16,2], [19,18,19,16,10,8,19,8], [2,9,1,19,5,7,3,19]]         
+    for nums in [
+        [2,4,6,8,10],
+        [7,7,7,7,7]
     ]:
-        print(soln.jobScheduling(startTime, endTime, profit))
+        print(soln.numberOfArithmeticSlices(nums))
 
 if __name__ == "__main__":
     main()
