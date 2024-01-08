@@ -5,31 +5,45 @@ import heapq
 import string
 import bisect
 
+class TreeNode():
+    def __init__(self, val = 0, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def createTree(nodeList, index):
+    root = TreeNode(nodeList[index])
+    
+    if 2 * index + 1 < len(nodeList):
+        root.left = createTree(nodeList, 2 * index + 1)
+    if 2 * index + 2 < len(nodeList):
+        root.right = createTree(nodeList, 2 * index + 2)
+        
+    return root
 
 class Solution:
-    def numberOfArithmeticSlices(self, nums: list[int]):
-        n = len(nums)
-        total = 0
-        mem = [collections.defaultdict(int) for _ in range(n)]
+    def rangeSumBST(self, root: TreeNode, low: int, high: int):
+        ans = 0
         
-        for i in range(1, n):
-            for j in range(i):
-                diff = nums[i] - nums[j]
-                mem[i][diff] += 1
-                
-                if mem[j][diff]:
-                    mem[i][diff] += mem[j][diff]
-                    total += mem[j][diff]
-        
-        return total
+        def dfs(node):
+            nonlocal ans
+            if not node:
+                return
+            else:
+                if low <= node.val <= high:
+                    ans += node.val
+                dfs(node.left)
+                dfs(node.right) 
+       
+        dfs(root) 
+        return ans
 
 def main():
     soln = Solution()
-    for nums in [
-        [2,4,6,8,10],
-        [7,7,7,7,7]
-    ]:
-        print(soln.numberOfArithmeticSlices(nums))
+    node = createTree([10, 5, 15, 3, 7, None, 18], 0)
+    low = 7
+    high = 15
+    print(soln.rangeSumBST(node, low, high))
 
 if __name__ == "__main__":
     main()
