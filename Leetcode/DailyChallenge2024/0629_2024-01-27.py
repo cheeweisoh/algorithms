@@ -1,10 +1,3 @@
-import collections
-import math
-import random
-import heapq
-import string
-import bisect
-
 class Solution:
     def kInversePairs(self, n: int, k: int) -> int:
         MOD = 10**9 + 7
@@ -19,14 +12,3 @@ class Solution:
                     dp[i][j] = (dp[i][j - 1] + val) % MOD
 
         return (dp[n][k] + MOD - (dp[n][k - 1] if k > 0 else 0)) % MOD
-
-def main():
-    soln = Solution()
-    for n, k in [
-        [3, 0],
-        [3, 1],
-    ]:
-        print(soln.kInversePairs(n, k))
-
-if __name__ == "__main__":
-    main()
