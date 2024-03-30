@@ -14,7 +14,7 @@ class Solution {
        while (right < nums.length) {
            map.put(nums[right], map.getOrDefault(nums[right], 0) + 1);
 
-           while (map.size() > k) {
+           while (map.size() > n) {
                map.put(nums[left], map.get(nums[left]) - 1);
                if (map.get(nums[left]) == 0) {
                    map.remove(nums[left]);
