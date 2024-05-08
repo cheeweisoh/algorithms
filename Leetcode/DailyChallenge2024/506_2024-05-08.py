@@ -1,11 +1,4 @@
-import collections
-import math
-import random
 import heapq
-import string
-import bisect
-from structures import *
-
 
 class Solution:
     def findRelativeRanks(self, score: list[int]) -> list[str]:
@@ -26,13 +19,3 @@ class Solution:
             place += 1
 
         return score
-
-
-def main():
-    soln = Solution()
-    score = [10, 3, 8, 9, 4]
-    print(soln.findRelativeRanks(score))
-
-
-if __name__ == "__main__":
-    main()
