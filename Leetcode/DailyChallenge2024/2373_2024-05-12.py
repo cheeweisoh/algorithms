@@ -1,12 +1,3 @@
-# import collections
-# import math
-# import random
-# import heapq
-# import string
-# import bisect
-# from structures import *
-
-
 class Solution:
     def largestLocal(self, grid: list[list[int]]) -> list[list[int]]:
         n = len(grid)
@@ -23,13 +14,3 @@ class Solution:
                 ans[i - 1][j - 1] = temp
 
         return ans
-
-
-def main():
-    soln = Solution()
-    grid = [[9, 9, 8, 1], [5, 6, 2, 6], [8, 2, 6, 4], [6, 2, 2, 2]]
-    print(soln.largestLocal(grid))
-
-
-if __name__ == "__main__":
-    main()
