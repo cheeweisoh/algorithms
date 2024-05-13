@@ -8,27 +8,27 @@
 
 
 class Solution:
-    def largestLocal(self, grid: list[list[int]]) -> list[list[int]]:
-        n = len(grid)
-        ans = [[0 for _ in range(n - 2)] for _ in range(n - 2)]
+    def matrixScore(self, grid: list[list[int]]) -> int:
+        nrow, ncol = len(grid), len(grid[0])
+        score = (1 << (ncol - 1)) * nrow
 
-        for i in range(1, n - 1):
-            for j in range(1, n - 1):
-                temp = 0
+        for i in range(1, ncol):
+            currVal = 1 << (ncol - 1 - i)
+            sameBit = 0
 
-                for k in range(i - 1, i + 2):
-                    for m in range(j - 1, j + 2):
-                        temp = max(temp, grid[k][m])
+            for j in range(nrow):
+                if grid[j][i] == grid[j][0]:
+                    sameBit += 1
 
-                ans[i - 1][j - 1] = temp
+            score += max(sameBit, nrow - sameBit) * currVal
 
-        return ans
+        return score
 
 
 def main():
     soln = Solution()
-    grid = [[9, 9, 8, 1], [5, 6, 2, 6], [8, 2, 6, 4], [6, 2, 2, 2]]
-    print(soln.largestLocal(grid))
+    grid = [[0, 0, 1, 1], [1, 0, 1, 0], [1, 1, 0, 0]]
+    print(soln.matrixScore(grid))
 
 
 if __name__ == "__main__":
