@@ -1,11 +1,5 @@
 import collections
-# import math
-# import random
 import heapq
-
-# import string
-# import bisect
-# from structures import *
 
 
 class Solution:
@@ -62,13 +56,3 @@ class Solution:
                     vis[nx][ny] = True
 
         return -1
-
-
-def main():
-    soln = Solution()
-    grid = [[0, 0, 1], [0, 0, 0], [0, 0, 0]]
-    print(soln.maximumSafenessFactor(grid))
-
-
-if __name__ == "__main__":
-    main()
