@@ -1,13 +1,3 @@
-# import collections
-# import math
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import *
-
-
 class Solution:
     def subsets(self, nums: list[int]) -> list[list[int]]:
         ans = []
@@ -20,13 +10,3 @@ class Solution:
         dfs(0, [])
 
         return ans
-
-
-def main():
-    soln = Solution()
-    nums = [1, 2, 3]
-    print(soln.subsets(nums))
-
-
-if __name__ == "__main__":
-    main()
