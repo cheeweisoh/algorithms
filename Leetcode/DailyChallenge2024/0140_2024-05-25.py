@@ -1,12 +1,4 @@
 import collections
-# import math
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import *
-
 
 class Solution:
     def wordBreak(self, s: str, wordDict: list[str]) -> list[str]:
@@ -30,14 +22,3 @@ class Solution:
         dfs(s)
 
         return [" ".join(words) for words in memo[s]]
-
-
-def main():
-    soln = Solution()
-    s = "catsanddog"
-    wordDict = ["cat","cats","and","sand","dog"]
-    print(soln.wordBreak(s, wordDict))
-
-
-if __name__ == "__main__":
-    main()
