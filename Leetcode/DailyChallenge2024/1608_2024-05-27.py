@@ -1,13 +1,3 @@
-# import collections
-# import math
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import *
-
-
 class Solution:
     def specialArray(self, nums: list[int]) -> int:
         counts = [0] * (len(nums) + 1)
@@ -24,13 +14,3 @@ class Solution:
                 return j
 
         return -1
-
-
-def main():
-    soln = Solution()
-    nums = [3, 5]
-    print(soln.specialArray(nums))
-
-
-if __name__ == "__main__":
-    main()
