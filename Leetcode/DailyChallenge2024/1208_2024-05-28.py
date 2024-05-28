@@ -1,13 +1,3 @@
-# import collections
-# import math
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import *
-
-
 class Solution:
     def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
         start = 0
@@ -24,15 +14,3 @@ class Solution:
             maxLen = max(maxLen, end - start + 1)
 
         return maxLen
-
-
-def main():
-    soln = Solution()
-    s = "abcd"
-    t = "bcdf"
-    maxCost = 3
-    print(soln.equalSubstring(s, t, maxCost))
-
-
-if __name__ == "__main__":
-    main()
