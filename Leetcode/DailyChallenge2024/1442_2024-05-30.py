@@ -1,13 +1,3 @@
-# import collections
-# import math
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import *
-
-
 class Solution:
     def countTriplets(self, arr: list[int]) -> int:
         n = len(arr)
@@ -22,13 +12,3 @@ class Solution:
                     ans += (k - i)
         
         return ans
-        
-
-def main():
-    soln = Solution()
-    arr = [1, 1, 1, 1, 1]
-    print(soln.countTriplets(arr))
-
-
-if __name__ == "__main__":
-    main()
