@@ -9,25 +9,20 @@
 
 
 class Solution:
-    def countTriplets(self, arr: list[int]) -> int:
-        n = len(arr)
+    def scoreOfString(self, s: str) -> int:
         ans = 0
-        xorArray = [0, arr[0]]
-        for i in range(1, n):
-           xorArray.append(xorArray[-1] ^ arr[i]) 
 
-        for i in range(n):
-            for k in range(i+1, n):
-                if xorArray[i] == xorArray[k+1]:
-                    ans += (k - i)
-        
+        for i in range(1, len(s)):
+            print(i)
+            ans += abs(ord(s[i]) - ord(s[i-1]))
+
         return ans
-        
+
 
 def main():
     soln = Solution()
-    arr = [1, 1, 1, 1, 1]
-    print(soln.countTriplets(arr))
+    s = "hello"
+    print(soln.scoreOfString(s))
 
 
 if __name__ == "__main__":
