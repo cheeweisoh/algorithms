@@ -9,20 +9,19 @@
 
 
 class Solution:
-    def scoreOfString(self, s: str) -> int:
-        ans = 0
+    def reverseString(self, s: list[str]) -> None:
+        l, r = 0, len(s)-1
 
-        for i in range(1, len(s)):
-            print(i)
-            ans += abs(ord(s[i]) - ord(s[i-1]))
-
-        return ans
+        while l < r:
+            s[l], s[r] = s[r], s[l]
+            l += 1
+            r += 1
 
 
 def main():
     soln = Solution()
-    s = "hello"
-    print(soln.scoreOfString(s))
+    s = ["h", "e", "l", "l", "o"]
+    print(soln.reverseString(s))
 
 
 if __name__ == "__main__":
