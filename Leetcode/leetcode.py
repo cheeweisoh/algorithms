@@ -1,4 +1,5 @@
-# import collections
+import collections
+
 # import math
 # import random
 # import heapq
@@ -9,27 +10,19 @@
 
 
 class Solution:
-    def longestPalindrome(self, s: str) -> int:
-        counts = set()
-        ans = 0
+    def commonChars(self, words: list[str]) -> list[str]:
+        minFreq = collections.Counter(words[0])
 
-        for i in s:
-            if i in counts:
-                counts.remove(i)
-                ans += 2
-            else:
-                counts.add(i)
+        for word in words[1:]:
+            minFreq &= collections.Counter(word)
 
-        if counts:
-            ans += 1
-
-        return ans
+        return list(minFreq.elements())
 
 
 def main():
     soln = Solution()
-    s = "abccccdde"
-    print(soln.longestPalindrome(s))
+    words = ["bella", "label", "roller"]
+    print(soln.commonChars(words))
 
 
 if __name__ == "__main__":
