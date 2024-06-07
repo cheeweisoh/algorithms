@@ -1,8 +1,10 @@
+from collections import Counter
+
 class Solution:
-    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+    def isNStraightHand(self, hand: list[int], groupSize: int) -> bool:
         if len(hand) % groupSize != 0:
             return False
-        
+
         count = Counter(hand)
         sortedKeys = sorted(count.keys())
 
@@ -12,5 +14,5 @@ class Solution:
                     if count[key + i] < count[key]:
                         return False
                     count[key + i] -= count[key]
-        
+
         return True
