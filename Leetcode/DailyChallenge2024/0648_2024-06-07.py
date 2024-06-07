@@ -1,13 +1,3 @@
-# import collections
-# import math
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import *
-
-
 class TrieNode:
     def __init__(self):
         self.children = {}
@@ -53,14 +43,3 @@ class Solution:
         replacedWords = [trie.searchRoot(word) for word in words]
 
         return " ".join(replacedWords)
-
-
-def main():
-    soln = Solution()
-    dictionary = ["a", "b", "c"]
-    sentence = "aadsfasf absbs bbab cadsfafs"
-    print(soln.replaceWords(dictionary, sentence))
-
-
-if __name__ == "__main__":
-    main()
