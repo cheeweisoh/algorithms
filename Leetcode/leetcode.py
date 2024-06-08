@@ -8,58 +8,37 @@
 # from structures import *
 
 
-class TrieNode:
-    def __init__(self):
-        self.children = {}
-        self.isEnd = False
-
-
-class Trie:
-    def __init__(self):
-        self.root = TrieNode()
-
-    def insert(self, word):
-        node = self.root
-
-        for char in word:
-            if char not in node.children:
-                node.children[char] = TrieNode()
-            node = node.children[char]
-
-        node.isEnd = True
-
-    def searchRoot(self, word):
-        node = self.root
-        prefix = ""
-
-        for char in word:
-            if char not in node.children:
-                break
-            node = node.children[char]
-            prefix += char
-            if node.isEnd:
-                return prefix
-
-        return word
-
-
 class Solution:
-    def replaceWords(self, dictionary: list[str], sentence: str) -> str:
-        trie = Trie()
-        for word in dictionary:
-            trie.insert(word)
+    def checkSubarraySum(self, nums: list[int], k: int) -> bool:
+        mem = {0: -1}
+        total = 0
 
-        words = sentence.split()
-        replacedWords = [trie.searchRoot(word) for word in words]
+        for i in range(len(nums)):
+            total += nums[i]
+            rem = total % k
 
-        return " ".join(replacedWords)
+            if rem in mem:
+                if i - mem[rem] > 1:
+                    return True
+            else:
+                mem[rem] = i
+
+        return False
 
 
 def main():
     soln = Solution()
-    dictionary = ["a", "b", "c"]
-    sentence = "aadsfasf absbs bbab cadsfafs"
-    print(soln.replaceWords(dictionary, sentence))
+    nums = [0]
+    k = 1
+    print(soln.checkSubarraySum(nums, k))
+
+    nums = [23, 2, 6, 4, 7]
+    k = 6
+    print(soln.checkSubarraySum(nums, k))
+
+    nums = [23, 2, 4, 6, 6]
+    k = 7
+    print(soln.checkSubarraySum(nums, k))
 
 
 if __name__ == "__main__":
