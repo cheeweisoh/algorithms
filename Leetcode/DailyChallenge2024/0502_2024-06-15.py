@@ -1,11 +1,4 @@
-# import collections
-# import math
-# import random
 import heapq
-
-# import string
-# import bisect
-# from structures import *
 
 
 class Solution:
@@ -31,16 +24,3 @@ class Solution:
             w -= heapq.heappop(order)
 
         return w
-
-
-def main():
-    soln = Solution()
-    k = 2
-    w = 0
-    profits = [1, 2, 3]
-    capital = [0, 1, 1]
-    print(soln.findMaximizedCapital(k, w, profits, capital))
-
-
-if __name__ == "__main__":
-    main()
