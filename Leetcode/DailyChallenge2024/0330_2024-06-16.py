@@ -1,13 +1,3 @@
-# import collections
-# import math
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import *
-
-
 class Solution:
     def minPatches(self, nums: list[int], n: int) -> int:
         miss = 1
@@ -24,14 +14,3 @@ class Solution:
             print(miss, i, ans)
 
         return ans
-
-
-def main():
-    soln = Solution()
-    nums = [1, 5, 10]
-    n = 20
-    print(soln.minPatches(nums, n))
-
-
-if __name__ == "__main__":
-    main()
