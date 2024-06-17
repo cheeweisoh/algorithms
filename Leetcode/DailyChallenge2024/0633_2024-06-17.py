@@ -1,13 +1,4 @@
-# import collections
 import math
-
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import *
-
 
 class Solution:
     def judgeSquareSum(self, c: int) -> bool:
@@ -23,12 +14,3 @@ class Solution:
                 r -= 1
 
         return False
-
-
-def main():
-    soln = Solution()
-    print(soln.judgeSquareSum(7))
-
-
-if __name__ == "__main__":
-    main()
