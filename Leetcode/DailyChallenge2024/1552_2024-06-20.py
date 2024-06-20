@@ -1,21 +1,9 @@
-# import collections
-# import math
-
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import *
-
-
 class Solution:
     def maxDistance(self, position: list[int], m: int) -> int:
-        position.sort()
         l, r = 1, position[-1] - position[0]
         ans = -1
 
-        while l <= r:
+        while l < r:
             # mid is the current min distance that we are testing
             mid = l + (r - l) // 2
             lastPos, balls = position[0], 1
@@ -37,14 +25,3 @@ class Solution:
                 r = mid - 1
 
         return ans
-
-
-def main():
-    soln = Solution()
-    position = [1, 2, 3, 4, 7]
-    m = 3
-    print(soln.maxDistance(position, m))
-
-
-if __name__ == "__main__":
-    main()
