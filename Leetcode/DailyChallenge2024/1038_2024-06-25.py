@@ -1,11 +1,3 @@
-# import collections
-# import math
-
-# import random
-# import heapq
-
-# import string
-# import bisect
 from structures import TreeNode
 
 
@@ -25,11 +17,3 @@ class Solution:
 
         dfs(root)
         return root
-
-
-def main():
-    soln = Solution()
-
-
-if __name__ == "__main__":
-    main()
