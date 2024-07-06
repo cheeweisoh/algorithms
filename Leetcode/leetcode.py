@@ -1,5 +1,5 @@
 # import collections
-# import math
+import math
 
 # import random
 # import heapq
@@ -10,22 +10,20 @@
 
 
 class Solution:
-    def threeConsecutiveOdds(self, arr: list[int]) -> bool:
-        count = 0
-        for i in arr:
-            if i % 2 != 0:
-                count += 1
-                if count == 3:
-                    return True
-            else:
-                count = 0
+    def passThePillow(self, n: int, time: int) -> int:
+        completeCycle = n * 2 - 2
+        remainTime = time % completeCycle
+        noDiff = abs(n - 1 - remainTime)
+        noFromStart = n - noDiff
 
-        return False
+        return noFromStart
+
 
 def main():
     soln = Solution()
-    arr = [1,2,34,3,4,5,7,23,12]
-    print(soln.threeConsecutiveOdds(arr))
+    n = 4
+    time = 5
+    print(soln.passThePillow(n, time))
 
 
 if __name__ == "__main__":
