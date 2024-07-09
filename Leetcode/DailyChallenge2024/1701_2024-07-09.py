@@ -1,14 +1,3 @@
-# import collections
-import math
-
-# import random
-# import heapq
-
-# import string
-# import bisect
-# from structures import TreeNode
-
-
 class Solution:
     def averageWaitingTime(self, customers: list[list[int]]) -> float:
         currTime = customers[0][0]
@@ -21,13 +10,3 @@ class Solution:
             totalTime += currTime - a
 
         return totalTime / n
-
-
-def main():
-    soln = Solution()
-    customers = [[2, 3], [6, 3], [7, 5], [11, 3], [15, 2], [18, 1]]
-    print(soln.averageWaitingTime(customers))
-
-
-if __name__ == "__main__":
-    main()
