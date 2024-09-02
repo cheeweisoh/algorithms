@@ -1,6 +1,5 @@
 # import collections
-import math
-
+# import math
 # import random
 # import heapq
 
@@ -10,25 +9,22 @@ import math
 
 
 class Solution:
-    def minOperations(self, logs: list[str]) -> int:
-        count = 0
+    def chalkReplacer(self, chalk: list[int], k: int) -> int:
+        total = sum(chalk)
+        remain = k % total
 
-        for i in logs:
-            if i == "./":
-                print(count)
-                continue
-            elif i == "../":
-                count = max(count - 1, 0)
+        for i in range(len(chalk)):
+            if remain < chalk[i]:
+                return i
             else:
-                count += 1
-
-        return max(count, 0)
+                remain -= chalk[i]
 
 
 def main():
     soln = Solution()
-    logs = ["./", "wz4/", "../", "mj2/", "../", "../", "ik0/", "il7/"]
-    print(soln.minOperations(logs))
+    chalk = [3, 4, 1, 2]
+    k = 25
+    print(soln.chalkReplacer(chalk, k))
 
 
 if __name__ == "__main__":
