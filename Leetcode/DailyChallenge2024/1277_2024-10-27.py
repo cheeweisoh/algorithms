@@ -1,13 +1,3 @@
-# import collections
-# import math
-# import random
-# import heapq
-# import string
-# import bisect
-# from typing import Optional
-# from structures import ListNode, TreeNode
-
-
 class Solution:
     def countSquares(self, matrix: list[list[int]]) -> int:
         m, n = len(matrix), len(matrix[0])
@@ -32,13 +22,3 @@ class Solution:
         res = sum(sum(dp[i]) for i in range(m))
 
         return res
-
-
-def main():
-    soln = Solution()
-    matrix = [[1, 0, 1], [1, 1, 0], [1, 1, 0]]
-    print(soln.countSquares(matrix))
-
-
-if __name__ == "__main__":
-    main()
