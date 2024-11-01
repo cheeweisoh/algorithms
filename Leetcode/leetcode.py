@@ -9,27 +9,23 @@
 
 
 class Solution:
-    def longestSquareStreak(self, nums: list[int]) -> int:
-        res = 1
-        mem = {}
-        nums.sort()
+    def makeFancyString(self, s: str) -> str:
+        if len(s) <= 2:
+            return s
 
-        for i in nums:
-            ir = i**0.5
-            if ir in mem:
-                mem[i] = mem[ir] + 1
-                if mem[i] > res:
-                    res = mem[i]
-            else:
-                mem[i] = 1
+        res = [s[0], s[1]]
 
-        return res if res != 1 else -1
+        for i in s[2:]:
+            if i != res[-1] or i != res[-2]:
+                res.append(i)
+
+        return "".join(res)
 
 
 def main():
     soln = Solution()
-    nums = [2, 3, 5, 6, 7]
-    print(soln.longestSquareStreak(nums))
+    s = "aaabaaaa"
+    print(soln.makeFancyString(s))
 
 
 if __name__ == "__main__":
