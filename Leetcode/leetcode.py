@@ -9,23 +9,23 @@
 
 
 class Solution:
-    def makeFancyString(self, s: str) -> str:
-        if len(s) <= 2:
-            return s
+    def isCircularSentence(self, sentence: str) -> bool:
+        s = sentence.split(" ")
 
-        res = [s[0], s[1]]
+        for i in range(1, len(s)):
+            print(s[i - 1][-1], s[i][0])
+            if s[i - 1][-1] != s[i][0]:
+                return False
 
-        for i in s[2:]:
-            if i != res[-1] or i != res[-2]:
-                res.append(i)
-
-        return "".join(res)
+        return s[0][0] == s[-1][-1]
 
 
 def main():
     soln = Solution()
-    s = "aaabaaaa"
-    print(soln.makeFancyString(s))
+    sentence = "ab a"
+    print(soln.isCircularSentence(sentence))
+    sentence = "Leetcode is cool"
+    print(soln.isCircularSentence(sentence))
 
 
 if __name__ == "__main__":
