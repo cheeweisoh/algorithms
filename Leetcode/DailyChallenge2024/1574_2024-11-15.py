@@ -1,13 +1,3 @@
-# import collections
-# import math
-# import random
-# import heapq
-# import string
-# import bisect
-# from typing import Optional
-# from structures import ListNode, TreeNode
-
-
 class Solution:
     def findLengthOfShortestSubarray(self, arr: list[int]) -> int:
         n = len(arr)
@@ -36,13 +26,3 @@ class Solution:
                 j += 1
 
         return res
-
-
-def main():
-    soln = Solution()
-    arr = [10, 13, 17, 21, 15, 15, 9, 17, 22, 22, 13]
-    print(soln.findLengthOfShortestSubarray(arr))
-
-
-if __name__ == "__main__":
-    main()
