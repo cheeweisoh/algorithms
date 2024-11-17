@@ -1,13 +1,5 @@
 import collections
 
-# import math
-# import random
-# import heapq
-# import string
-# import bisect
-# from typing import Optional
-# from structures import ListNode, TreeNode
-
 
 class Solution:
     def shortestSubarray(self, nums: list[int], k: int) -> int:
@@ -41,14 +33,3 @@ class Solution:
             dq.append(i)
 
         return res if res <= len(nums) else -1
-
-
-def main():
-    soln = Solution()
-    nums = [2, -1, 2, -1, -1]
-    k = 3
-    print(soln.shortestSubarray(nums, k))
-
-
-if __name__ == "__main__":
-    main()
