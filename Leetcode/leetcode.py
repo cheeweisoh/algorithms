@@ -1,53 +1,42 @@
-import collections
+# import collections
+import bisect
 
 # import math
 # import random
 # import heapq
 # import string
-# import bisect
 # from typing import Optional
 # from structures import ListNode, TreeNode
 
 
 class Solution:
-    def shortestSubarray(self, nums: list[int], k: int) -> int:
-        # time complexity: O(n)
-        # for loop: O(n)
-        # while loops: total of O(n), each i is only appended and popped once
-        # all deque operations take O(1)
+    def maxTwoEvents(self, events: list[list[int]]) -> int:
+        events.sort(key=lambda x: x[1])
+        curr_max = []
+        curr_max_val = 0
+        res = 0
 
-        # calculate prefix sums
-        curr = 0
-        prefix_sum = [0]
+        for _, e, v in events:
+            curr_max_val = max(curr_max_val, v)
+            curr_max.append((e, curr_max_val))
 
-        for i in nums:
-            curr += i
-            prefix_sum.append(curr)
+        print(curr_max)
 
-        # deque tracks the possible starting points
-        dq = collections.deque()
-        res = len(nums) + 1
+        for s, e, v in events:
+            res = max(res, v)
 
-        for i in range(len(nums) + 1):
-            # if sum between range i and dq[0] satisfy, calculate min length
-            while dq and prefix_sum[i] - prefix_sum[dq[0]] >= k:
-                res = min(res, i - dq[0])
-                dq.popleft()
-            # if current sum is less than prev sum, curr position must be a negative number
-            # remove starting index of negative number (we should never start an ans w a neg number)
-            while dq and prefix_sum[i] <= prefix_sum[dq[-1]]:
-                dq.pop()
+            idx = bisect.bisect_left(curr_max, (s, 0)) - 1
+            print(idx)
+            if idx >= 0:
+                res = max(res, v + curr_max[idx][1])
 
-            dq.append(i)
-
-        return res if res <= len(nums) else -1
+        return res
 
 
 def main():
     soln = Solution()
-    nums = [2, -1, 2, -1, -1]
-    k = 3
-    print(soln.shortestSubarray(nums, k))
+    events = [[1, 3, 2], [4, 5, 2], [2, 4, 3]]
+    print(soln.maxTwoEvents(events))
 
 
 if __name__ == "__main__":
