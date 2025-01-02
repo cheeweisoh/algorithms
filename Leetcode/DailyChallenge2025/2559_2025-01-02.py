@@ -1,13 +1,3 @@
-# import collections
-# import bisect
-# import math
-# import random
-# import heapq
-# import string
-# from typing import Optional
-# from structures import ListNode, TreeNode
-
-
 class Solution:
     def check_vowel(self, char: str) -> int:
         return 0x208222 >> (ord(char) & 0x1F) & 1
@@ -26,14 +16,3 @@ class Solution:
             res.append(prefix_sum[e + 1] - prefix_sum[s])
 
         return res
-
-
-def main():
-    soln = Solution()
-    words = ["aba", "bcb", "ece", "aa", "e"]
-    queries = [[0, 2], [1, 4], [1, 1]]
-    print(soln.vowelStrings(words, queries))
-
-
-if __name__ == "__main__":
-    main()
