@@ -9,30 +9,23 @@
 
 
 class Solution:
-    def check_vowel(self, char: str) -> int:
-        return 0x208222 >> (ord(char) & 0x1F) & 1
+    def waysToSplitArray(self, nums: list[int]) -> int:
+        total = sum(nums)
+        curr = 0
+        res = 0
 
-    def vowelStrings(self, words: list[str], queries: list[list[int]]) -> list[int]:
-        prefix_sum = [0]
-        curr_sum = 0
-        res = []
-
-        for word in words:
-            if self.check_vowel(word[0]) and self.check_vowel(word[-1]):
-                curr_sum += 1
-            prefix_sum.append(curr_sum)
-
-        for s, e in queries:
-            res.append(prefix_sum[e + 1] - prefix_sum[s])
+        for n in nums[:-1]:
+            curr += n
+            if curr >= total - curr:
+                res += 1
 
         return res
 
 
 def main():
     soln = Solution()
-    words = ["aba", "bcb", "ece", "aa", "e"]
-    queries = [[0, 2], [1, 4], [1, 1]]
-    print(soln.vowelStrings(words, queries))
+    nums = [10, 4, -8, 7]
+    print(soln.waysToSplitArray(nums))
 
 
 if __name__ == "__main__":
