@@ -9,23 +9,22 @@
 
 
 class Solution:
-    def waysToSplitArray(self, nums: list[int]) -> int:
-        total = sum(nums)
-        curr = 0
+    def countPalindromicSubsequence(self, s: str) -> int:
         res = 0
 
-        for n in nums[:-1]:
-            curr += n
-            if curr >= total - curr:
-                res += 1
+        for i in set(s):
+            l, r = s.find(i), s.rfind(i)
+
+            if l != -1 and r != -1:
+                res += len(set(s[l + 1 : r]))
 
         return res
 
 
 def main():
     soln = Solution()
-    nums = [10, 4, -8, 7]
-    print(soln.waysToSplitArray(nums))
+    s = "aabca"
+    print(soln.countPalindromicSubsequence(s))
 
 
 if __name__ == "__main__":
