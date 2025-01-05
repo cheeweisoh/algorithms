@@ -9,22 +9,40 @@
 
 
 class Solution:
-    def countPalindromicSubsequence(self, s: str) -> int:
-        res = 0
+    def shiftingLetters(self, s: str, shifts: list[list[int]]) -> str:
+        prefix_sum = [0] * (len(s) + 1)
 
-        for i in set(s):
-            l, r = s.find(i), s.rfind(i)
+        for start, end, dir in shifts:
+            change = 1 if dir else -1
+            prefix_sum[start] += change
+            prefix_sum[end + 1] -= change
 
-            if l != -1 and r != -1:
-                res += len(set(s[l + 1 : r]))
+        print(prefix_sum)
 
-        return res
+        res = list(s)
+        curr = 0
+        for i in range(len(s)):
+            curr += prefix_sum[i]
+            res[i] = chr(ord("a") + (ord(res[i]) - ord("a") + curr) % 26)
+
+        return "".join(res)
 
 
 def main():
     soln = Solution()
-    s = "aabca"
-    print(soln.countPalindromicSubsequence(s))
+    s = "xuwdbdqik"
+    shifts = [
+        [4, 8, 0],
+        [4, 4, 0],
+        [2, 4, 0],
+        [2, 4, 0],
+        [6, 7, 1],
+        [2, 2, 1],
+        [0, 2, 1],
+        [8, 8, 0],
+        [1, 3, 1],
+    ]
+    print(soln.shiftingLetters(s, shifts))
 
 
 if __name__ == "__main__":
