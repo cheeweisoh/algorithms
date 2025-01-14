@@ -1,4 +1,5 @@
-# import collections
+from collections import defaultdict
+
 # import bisect
 # import math
 # import random
@@ -9,23 +10,28 @@
 
 
 class Solution:
-    def stringMatching(self, words: list[str]) -> list[str]:
-        words.sort(key=lambda x: len(x), reverse=True)
-        res = set()
-        n = len(words)
+    def findThePrefixCommonArray(self, A: list[int], B: list[int]) -> list[int]:
+        counts = defaultdict(int)
+        res = []
 
-        for i in range(n):
-            for j in range(i + 1, n):
-                if words[i].find(words[j]) != -1:
-                    res.add(words[j])
+        for i in range(len(A)):
+            counts[A[i]] += 1
+            counts[B[i]] += 1
 
-        return list(res)
+            curr = 0
+            for j in counts.values():
+                if j == 2:
+                    curr += 1
+            res.append(curr)
+
+        return res
 
 
 def main():
     soln = Solution()
-    words = ["leetcoder", "leetcode", "od", "hamlet", "am"]
-    print(soln.stringMatching(words))
+    A = [2, 3, 1]
+    B = [3, 1, 2]
+    print(soln.findThePrefixCommonArray(A, B))
 
 
 if __name__ == "__main__":
